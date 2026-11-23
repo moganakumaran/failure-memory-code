@@ -2,6 +2,7 @@
 """Figure 1 for Paper #1: paired pass@1 differences with bootstrap 95% CIs.
 Original-label contrasts from pilot_stage1/2_results.json; corrected-label
 contrasts as reported in the Stage 2 report (same analysis run)."""
+import pathlib
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
@@ -77,6 +78,6 @@ ax.set_title("Paper #1 pilot: paired pass@1 differences by arm contrast and labe
 for s in ("top", "right", "left"):
     ax.spines[s].set_visible(False)
 fig.tight_layout()
-out = "/home/hatch/workspace/goals/research-papers-on-agentic-ai-for-data-ai/files/Paper 1 Figure 1 - Paired Differences.png"
+out = pathlib.Path(__file__).resolve().parent / "Paper 1 Figure 1 - Paired Differences.png"
 fig.savefig(out, dpi=200)
 print("wrote", out)

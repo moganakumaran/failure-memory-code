@@ -3,7 +3,7 @@
 Data files only; no external code is executed. Rules: Substrate Specification v2."""
 import json, csv, re, random, hashlib, collections, pathlib
 
-BASE = pathlib.Path.home() / "workspace/goals/research-papers-on-agentic-ai-for-data-ai"
+BASE = pathlib.Path(__file__).resolve().parent  # project root (see README: Layout)
 BIRD = BASE / "hidden_files/datasets/bird/dev_20240627/dev.json"
 ARC = BASE / "hidden_files/datasets/jin_corrected/text_to_sql_benchmarks/data/arcwise_plat_full_with_diff.json"
 OUT = BASE / "hidden_files/manifest_v1.csv"

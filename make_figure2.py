@@ -5,13 +5,13 @@ operator x drift_type cross-tab verified 2026-11-23 —
 rename 23 overt, type-change 4 overt (= 27 overt);
 recode 10, unit 9, merge 9, temporal 4, null 1, all silent (= 33 silent).
 Matches Draft v1 section 3.2 exactly."""
-import csv
+import csv, pathlib
 from collections import Counter
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-spec = "/home/hatch/workspace/goals/research-papers-on-agentic-ai-for-data-ai/hidden_files/drift_spec.csv"
+spec = pathlib.Path(__file__).resolve().parent / "drift_spec.csv"
 rows = list(csv.DictReader(open(spec)))
 assert len(rows) == 60, len(rows)
 ct = Counter((r["operator"], r["drift_type"]) for r in rows)
@@ -52,6 +52,6 @@ ax.set_xlim(0, 27)
 for s in ("top", "right", "left"):
     ax.spines[s].set_visible(False)
 fig.tight_layout()
-out = "/home/hatch/workspace/goals/research-papers-on-agentic-ai-for-data-ai/files/Paper 1 Figure 2 - Drift Split.png"
+out = pathlib.Path(__file__).resolve().parent / "Paper 1 Figure 2 - Drift Split.png"
 fig.savefig(out, dpi=200)
 print("wrote", out, "| silent", sum(silent), "overt", sum(overt))

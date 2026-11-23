@@ -10,7 +10,7 @@ Local model via Ollama HTTP API. Rules: Frozen Pilot Protocol v2.
 """
 import json, sqlite3, time, urllib.request, collections, pathlib, sys
 
-BASE = pathlib.Path.home() / "workspace/goals/research-papers-on-agentic-ai-for-data-ai"
+BASE = pathlib.Path(__file__).resolve().parent  # project root (see README: Layout)
 DEV = BASE / "hidden_files/datasets/bird/dev_20240627/dev.json"
 DBROOT = BASE / "hidden_files/datasets/bird/dev_20240627/dev_databases/dev_databases"
 MANIFEST = BASE / "hidden_files/manifest_v1.csv"

@@ -40,3 +40,31 @@ results, and datasets live in the companion project repository.
 
 All paired contrasts use per-task run-mean pass@1 with task-level bootstrap
 95% CIs (10,000 resamples, seed 20261122).
+
+## Layout, inputs, dependencies
+
+Paths are portable: every script resolves its project root as the directory
+containing the code (`Path(__file__).parent`). The builders and dry runs
+expect the study layout under that root — `hidden_files/datasets/` (BIRD Dev
+and the Jin et al. corrected-label repo), `hidden_files/manifest_v1.csv`, and
+outputs written under `hidden_files/`. The pilot harness (`pilot_lib.py`)
+expects `datasets/` beside the code. The analysis scripts read the run traces
+(`traces_*.jsonl`), episode journals, splits (`splits_repeated.csv`),
+`manifest_v2.csv` and `drift_spec.csv` from the same directory; those data
+artefacts are **not** in this repository — they live, with the manuscript,
+protocol and reports, in the companion private repository
+`github.com/moganakumaran/agentic-ai-research-papers`. `make_figure2.py`
+needs `drift_spec.csv` beside the code; `make_figure1.py` is self-contained
+(contrast values embedded, as reported).
+
+Dependencies: Python 3 standard library plus `matplotlib` (figures only).
+Model access is not via an SDK: the OpenAI and OpenRouter backends shell out
+to connector helper scripts — set `OPENAI_HELPER` / `OPENROUTER_HELPER` to
+their paths (defaults preserve the original study machine's locations); the
+local backend expects an Ollama server on localhost. API credentials are held
+by those helpers, never by this code.
+
+Note: the code was patched for path portability after the study ran
+(2026-11-23, with the author's approval); the patch changed no logic, and the
+figure scripts were re-run after patching and reproduce the paper's figures
+byte-identically.

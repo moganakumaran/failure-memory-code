@@ -13,7 +13,7 @@ Implements Protocol S6 (memory spec) and S7 (fairness accounting):
 import json, re, sqlite3, subprocess, sys, time, hashlib, math, pathlib, os
 
 BASE = pathlib.Path(__file__).parent
-HELPER = pathlib.Path.home() / "workspace/custom-connectors/custom.openai/bin/openai_api.py"
+HELPER = pathlib.Path(os.environ.get("OPENAI_HELPER", pathlib.Path.home() / "workspace/custom-connectors/custom.openai/bin/openai_api.py"))
 DBROOT = BASE / "datasets/bird/dev_20240627/dev_databases/dev_databases"
 DRIFTROOT = BASE / "datasets/bird_drift"
 LEDGER = BASE / "pilot_spend.json"
@@ -92,7 +92,7 @@ def call_ollama(prompt, model="qwen-coder-3b", max_tokens=1200):
     return (out.get("response", ""), out.get("prompt_eval_count", 0),
             out.get("eval_count", 0), time.time() - t0, 0.0)
 
-OR_HELPER = pathlib.Path.home() / "workspace/custom-connectors/custom.openrouter/bin/openrouter_api.py"
+OR_HELPER = pathlib.Path(os.environ.get("OPENROUTER_HELPER", pathlib.Path.home() / "workspace/custom-connectors/custom.openrouter/bin/openrouter_api.py"))
 REP_LEDGER = BASE / "pilot_spend_replication.json"
 REP_CAP_USD = 10.00                           # Amendment A10 replication cap
 # OpenRouter list price for qwen/qwen-2.5-coder-32b-instruct (Nov 2026 listings)

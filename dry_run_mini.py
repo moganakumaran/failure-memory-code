@@ -8,14 +8,14 @@ gold used only for scoring). Differences are backend-only and recorded:
   and recorded here. max_completion_tokens=6000 (reasoning tokens included in usage).
 - Calls go through ~/workspace/custom-connectors/custom.openai/bin/openai_api.py.
 """
-import json, sqlite3, time, subprocess, collections, pathlib, sys, csv
+import json, sqlite3, time, subprocess, collections, pathlib, sys, csv, os
 
-BASE = pathlib.Path.home() / "workspace/goals/research-papers-on-agentic-ai-for-data-ai"
+BASE = pathlib.Path(__file__).resolve().parent  # project root (see README: Layout)
 DEV = BASE / "hidden_files/datasets/bird/dev_20240627/dev.json"
 DBROOT = BASE / "hidden_files/datasets/bird/dev_20240627/dev_databases/dev_databases"
 MANIFEST = BASE / "hidden_files/manifest_v1.csv"
 OUT = BASE / "hidden_files/dry_run_traces_mini.jsonl"
-HELPER = pathlib.Path.home() / "workspace/custom-connectors/custom.openai/bin/openai_api.py"
+HELPER = pathlib.Path(os.environ.get("OPENAI_HELPER", pathlib.Path.home() / "workspace/custom-connectors/custom.openai/bin/openai_api.py"))
 MODEL = "gpt-5-mini-2025-08-07"
 
 dry_ids = []
